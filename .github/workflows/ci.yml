@@ -44,9 +44,9 @@ jobs:
           MONGODB_URI: mongodb://localhost:27017/test
 
       - name: Wait for API to be ready
-        run: npx wait-on http://localhost:3000/api/holidays
+        run:  npx wait-on http://127.0.0.1:3000/api/holidays
 
       - name: Run Keploy Test Suite
         run: |
           export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
-          keploy test-suite --app=00079289-da05-4efd-af7f-3c89fe67ed78 --base-path http://localhost:3000/api/holidays --cloud
+          keploy test-suite --app=00079289-da05-4efd-af7f-3c89fe67ed78 --base-path http://127.0.0.1:3000/api/holidays --cloud
