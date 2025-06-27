@@ -51,7 +51,7 @@ See the [GitHub Actions workflow file](.github/workflows/ci.yml) used for contin
 
 Below is a screenshot of the Keploy API Testing Dashboard showing all test suites passing for this project:
 
-![Keploy Test Report](keploy-test-report.png)
+![Keploy Test Report](screenshot/keploy-test-report.png)
 The screenshot is also present in the screenshot folder in  the repository
 
 Note: The Keploy API key is stored securely as a GitHub Actions secret (KEPLOY_API_KEY).
