@@ -43,3 +43,15 @@ A RESTful API for managing and retrieving public holidays for different countrie
 
 - Test coverage is automatically calculated with Jest.
 
+## CI/CD Pipeline Configuration
+
+See the [GitHub Actions workflow file](.github/workflows/ci.yml) used for continuous integration and Keploy API testing.
+
+## Keploy API Testing Dashboard Report
+
+Below is a screenshot of the Keploy API Testing Dashboard showing all test suites passing for this project:
+
+![Keploy Test Report]("C:\Users\KIIT\OneDrive\Pictures\Screenshots\screenshotskeploy-test-report.png")
+
+Note: The Keploy API key is stored securely as a GitHub Actions secret (KEPLOY_API_KEY).
+      The MongoDB service is provisioned automatically for the tests.
