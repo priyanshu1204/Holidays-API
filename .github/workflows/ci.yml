@@ -27,30 +27,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install wait-on
-        run: npm install --save-dev wait-on
-
       - name: Run unit and integration tests
         run: npm test
 
       - name: Install Keploy CLI
         run: |
           curl --silent -L https://keploy.io/ent/install.sh | bash
-
-      - name: Start API Server
-        run: |
-          npm start &
-        env:
-          MONGODB_URI: mongodb://127.0.0.1:27017/test
-
-      - name: List running processes 
-        run: ps aux
-    
-
-      - name: Wait for API to be ready
-        run:  npx wait-on --timeout 30000 http://127.0.0.1:3000/api/holidays
-
       - name: Run Keploy Test Suite
         run: |
           export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
-          keploy test-suite --app=00079289-da05-4efd-af7f-3c89fe67ed78 --base-path http://127.0.0.1:3000/api/holidays --cloud
+          keploy test-suite --app=00079289-da05-4efd-af7f-3c89fe67ed78 --base-path http://localhost:3000/api/holidays --cloud
