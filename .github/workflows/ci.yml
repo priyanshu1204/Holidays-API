@@ -43,6 +43,10 @@ jobs:
         env:
           MONGODB_URI: mongodb://127.0.0.1:27017/test
 
+      - name: List running processes 
+        run: ps aux
+    
+
       - name: Wait for API to be ready
         run:  npx wait-on --timeout 30000 http://127.0.0.1:3000/api/holidays
 
