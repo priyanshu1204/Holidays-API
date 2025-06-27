@@ -37,4 +37,5 @@ jobs:
       - name: Run Keploy Test Suite
         run: |
           export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
-          keploy test-suite --app=<your-app-id> --base-path http://localhost:3000/api/holidays --cloud
+          keploy test-suite --app=00079289-da05-4efd-af7f-3c89fe67ed78 --base-path http://localhost:3000/api/holidays --cloud
+
