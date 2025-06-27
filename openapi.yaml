@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: Holidays API
+  version: 1.0.0
+  description: REST API for managing public holidays
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /api/holidays:
+    get:
+      summary: Get all holidays
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Holiday'
+        '500':
+          description: Server error
+    post:
+      summary: Create a new holiday
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HolidayInput'
+      responses:
+        '201':
+          description: Holiday created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Holiday'
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+  /api/holidays/{country}:
+    get:
+      summary: Get holidays by country
+      parameters:
+        - name: country
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Country name (case-insensitive)
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Holiday'
+        '404':
+          description: No holidays found
+        '500':
+          description: Server error
+
+  /api/holidays/{id}:
+    put:
+      summary: Update a holiday
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the holiday
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HolidayInput'
+      responses:
+        '200':
+          description: Holiday updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Holiday'
+        '400':
+          description: Invalid input
+        '404':
+          description: Holiday not found
+        '500':
+          description: Server error
+    delete:
+      summary: Delete a holiday
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: MongoDB ID of the holiday
+      responses:
+        '200':
+          description: Holiday deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Holiday deleted
+        '404':
+          description: Holiday not found
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    HolidayInput:
+      type: object
+      required:
+        - country
+        - name
+        - date
+      properties:
+        country:
+          type: string
+          example: Japan
+        name:
+          type: string
+          example: Golden Week
+        date:
+          type: string
+          format: date
+          example: 2025-05-03
+
+    Holiday:
+      allOf:
+        - $ref: '#/components/schemas/HolidayInput'
+        - type: object
+          properties:
+            _id:
+              type: string
+              example: 60a7b8d9e6b3a30015f3d7a1
+            __v:
+              type: integer
+              example: 0
